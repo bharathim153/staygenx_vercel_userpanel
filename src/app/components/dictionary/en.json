@@ -1,0 +1,267 @@
+{
+  "HOMEPAGE": {
+    "HEADER": {
+      "SEARCHBAR": {
+        "HOMES": "Homes",
+        "ANYWHERE": "Anywhere",
+        "ANYTIME": "Anytime",
+        "ADDGUEST": "Add guest",
+        "WHERE": "Where",
+        "SEARCHDESTINATION": "Search destination",
+        "CHECKIN": "Check in",
+        "CHECKOUT": "Check out",
+        "WHO": "Who",
+        "ADDDATES": "Add dates",
+        "SEARCH": "start your search",
+        "SEARCH2": "search",
+        "FILTERS": "Filters",
+        "CURRENTLOCATION": "Use my current location",
+        "NEARBY": "Nearby",
+        "DESC": "Find what’s around you HOMES"
+      },
+      "MENU": {
+        "EXPLORE": "Explore",
+        "PROFILE": "Profile",
+        "TRIPS": "Trips",
+        "WISHLISTS": "Wishlists",
+        "MESSAGES": "Messages",
+        "ACCOUNT_SETTINGS": "Account settings",
+        "LANGUAGE_CURRENCY": "Languages & currency",
+        "HELP_CENTRE": "Help Centre",
+        "BECOME_A_HOST": "Become a host",
+        "SWITCH_TO_HOST": "Switch to hosting",
+        "SWITCH_TO_TRAVELLING": "Switch to travelling",
+        "DESC": "It’s easy to start hosting and earn extra income.",
+        "REFER_A_HOST": "Refer a host",
+        "FIND_A_CO_HOST": "Find a co-host",
+        "LOG_OUT": "Log out"
+      },
+      "PROFILEPAGE": {
+        "ABOUTME": "About me",
+        "PASTTRIPS": "Past trips",
+        "CONNECTS": "Connects",
+        "COMPLETEYOURPROFILE": "Complete your profile",
+        "GETSTARTED": "Get started",
+        "PROFILEDESC": "Your Staygenx profile is an important part of every reservation. Create yours to help other hosts and guests get to know you.",
+        "REVIEW": "Reviews I’ve written"
+      }
+    }
+  },
+  "ACCOUNTSETTINGS": {
+    "PERSONALINFO": {
+      "LEGELNAME": "Legel Name",
+      "PREFERREDFIRSTNAME": "Preferred first name",
+      "EMAILADDRESS": "Email address",
+      "PHONENUMBER": "Phone number",
+      "ADDRESS": "Address",
+      "EMERGENCYCONTACT": "Emergency contact"
+    },
+    "PersonalInfoHelp": {
+      "WHY_INFO_HIDDEN_TITLE": "Why isn’t my info shown here?",
+      "WHY_INFO_HIDDEN_DESC": "We’re hiding some account details to protect your identity.",
+      "EDITABLE_DETAILS_TITLE": "Which details can be edited?",
+      "EDITABLE_DETAILS_DESC": "Contact info and personal details can be edited. If this info was used to verify your identity, you’ll need to get verified again the next time you book – or to continue hosting.",
+      "SHARED_INFO_TITLE": "What info is shared with others?",
+      "SHARED_INFO_DESC": "Staygenx only releases contact information for Hosts and guests after a reservation is confirmed."
+    },
+    "MENU": {
+      "PERSONAL_INFORMATION": "Personal information",
+      "LOGIN_SECURITY": "Login & security",
+      "PRIVACY": "Privacy",
+      "NOTIFICATIONS": "Notifications",
+      "TAXES": "Taxes",
+      "PAYMENTS": "Payments",
+      "LANGUAGES_CURRENCY": "Languages & currency",
+      "TRAVEL_FOR_WORK": "Travel for work",
+      "PROFESSIONAL_HOSTING_TOOLS": "Professional hosting tools"
+    }
+  },
+  "COMMON": {
+    "TEXT": {
+      "EDIT": "Edit",
+      "SAVE": "Save",
+      "DONE": "Done",
+      "UPDATE": "Update",
+      "UPLOAD": "Upload",
+      "AVAILABLE": "Available"
+    }
+  },
+  "CREATELISTING": {
+    "OVERVIEW": {
+      "HEADING1": "It’s easy to get",
+      "HEADING2": "started on Staygenx"
+    },
+    "STEPLIST": {
+      "STEP1": {
+        "TITLE": "Tell us about your place",
+        "DESC": "Share some basic info, such as where it is and how many guests can stay."
+      },
+      "STEP2": {
+        "TITLE": "Make it stand out",
+        "DESC": "Add 5 or more photos plus a title and description – we’ll help you out."
+      },
+      "STEP3": {
+        "TITLE": "Finish up and publish",
+        "DESC": "Choose a starting price, verify a few details, then publish your listing."
+      }
+    },
+    "ABOUTYOURPLACE": {
+      "STEP_LABEL": "Step 1",
+      "TITLE": "Tell us about your place",
+      "DESC": "In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay."
+    },
+    "STRUCTURE": {
+      "HEADER": "Which of these best describes your place?"
+    },
+    "PRIVACYTYPE": {
+      "HEADER": "What type of place will guests have?"
+    },
+    "LOCATION": {
+      "HEADER": "Where's your place located?",
+      "DESC": "Your address is only shared with guests after they've made a reservation.",
+      "LOADING": "Loading map..."
+    },
+    "FLOORPLAN": {
+      "HEADER": "Share some basics about your place",
+      "DESC": "You'll add more details later, such as bed types."
+    },
+    "SANDOUT": {
+      "STEP_LABEL": "Step 2",
+      "TITLE": "Make your place stand out",
+      "DESC": "In this step, you'll add some of the amenities your place offers, plus 5 or more photos. Then you’ll create a title and description."
+    },
+    "AMENITIES": {
+      "TITLE": "Tell guests what your place has to offer",
+      "DESC": "You can add more amenities after you publish your listing.",
+      "HEADING": "What about these guest favourites?",
+      "NOAMENITY": "No Amenities"
+    },
+    "PHOTOS": {
+      "TITLE": "Add some photos of your container",
+      "DESC": "You'll need 5 photos to get started. You can add more or make changes later.",
+      "ADDPHOTOS": "Add photos",
+      "UPLOADPHOTOS": "Upload Photos",
+      "DRAGANDDROP": "Drag and Drop",
+      "BROWSEPHOTOS": "or browse for photos",
+      "BROWSE": "Browse",
+      "DELETE": "Delete",
+      "FROWARD": "Move forwards",
+      "BACKWARD": " Move backwards",
+      "COVERPHOTO": "Make cover photo"
+    },
+    "TITLE": {
+      "HEADER": "Now, let's give your container a title",
+      "DESC": "Short titles work best. Have fun with it – you can always change it later.",
+      "PLACEHOLDER": "Type your title..."
+    },
+    "DESCRIPTION": {
+      "HEADER": "Create your description",
+      "DESC": "Share what makes your place special.",
+      "PLACEHOLDER": "Type your title..."
+    },
+    "FINISHSETUP": {
+      "STEP_LABEL": "Step 3",
+      "TITLE": "Finish up and publish",
+      "DESC": "Finally, you'll choose booking settings, set up pricing and publish your listing."
+    },
+    "INSTANTBOOK": {
+      "TITLE": "Pick your booking settings",
+      "DESC": "You can change this at any time. ",
+      "LEARNMORE": "Learn more",
+      "HEADING1": "Approve your first 5 bookings",
+      "RECOMMENDED": "Recommended",
+      "PARA": "Start by reviewing reservation requests, then switch to Instant Book so guests can book automatically.",
+      "HEADING2": "Use Instant Book",
+      "PARA2": "Let guests book automatically."
+    },
+    "PRICE": {
+      "TITLE": "Now, set a weekday base price",
+      "DESC": "Guest price before taxes",
+      "BUTTON": "Show similar listings"
+    },
+    "WEEKENDPRICE": {
+      "TITLE": "Set a weekend price",
+      "DESC1": "Add a premium for Fridays and Saturdays.",
+      "DESC2": "Guest price before taxes",
+      "PREMIUM": "Weekend premium",
+      "TIP": "Tip",
+      "TRY": "Try"
+    },
+    "CREATE": {
+      "TITLE": "Share safety details",
+      "DESC1": "Does your place have any of these?",
+      "TITLE2": "Important things to know",
+      "DESC2": "Security cameras that monitor indoor spaces are not allowed even if they’re turned off. All exterior security cameras must be disclosed.",
+      "PARA": "Be sure to comply with your local laws and review Staygenx's",
+      "LINK1": "anti-discrimination policy ",
+      "AND": "and",
+      "LINK2": "guest and host fee",
+      "CHECKBOX1": "Exterior security camera present",
+      "CHECKBOX2": "Noise decibel monitor present",
+      "CHECKBOX3": "Weapon(s) on the property"
+    }
+  },
+  "TODAYPAGE": {
+    "TODAY": "Today",
+    "UPCOMING": "Upcoming",
+    "NORESERVATION_TODAY": "You don’t have any reservations",
+    "NORESERVATION_UPCOMING": " You don’t have any upcoming reservations",
+    "CALENDAR": "Calendar",
+    "LISTING": "Listing",
+    "MESSAGE": "Message",
+    "MENU": "Menu"
+  },
+  "LISTINGPAGE": {
+    "EDITLISTING": "Edit listing",
+    "REMOVE": "Remove listing",
+    "NOTFOUND": "Listing not found",
+    "CONFIRMKEY": "Confirm a few key details",
+    "REQUIRETOPUBLISH": "Required to publish",
+    "PENDING": "Pending",
+    "ACTIONREQ": "Action require",
+    "INPROGRESS": "In progress",
+    "PUBLISH": "Published",
+    "HOUSEIN": "Home in",
+    "LISTING": "Listing",
+    "TYPE": "Type",
+    "LOCATION": "Location",
+    "STATUS": "Status",
+    "LISTINGSTARTED": "Your listing started on"
+  },
+  "EDITLISTING": {
+    "LISTINGEDITOR": "Listing editor",
+    "TITLE": "Title",
+    "PRICING": "Pricing",
+    "NOOFGUEST": "Number of guest",
+    "AMENITIES": "Amenities",
+    "DESC": "Description",
+    "LOCATION": "Location",
+    "ABOUTHOST": "About the host",
+    "BED": "Bed",
+    "BEDROOM": "Bedroom",
+    "BATH": "Bath",
+    "PHOTO": "Photos",
+    "PERNIGHT": "per night",
+    "WEEKENDPRICE": "weekend price",
+    "TAB_YOURSPACE": "Your space",
+    "TAB_ARRIVALGUIDE": "Arrival guide",
+    "COMPLETE_REQUIRED_STEPS": "Complete required steps",
+    "COMPLETE_REQUIRED_DESCRIPTION": "Finish these final tasks to publish your listing and start getting booked.",
+    "PHOTO_TOUR_TITLE": "Photo tour",
+    "PHOTO_TOUR_VIEW_BUTTON": "View",
+    "PHOTO_TOUR_ROOM_SUBTITLE": "Manage photos and add details. Guests will only see your tour if every room has a photo.",
+    "PHOTO_TOUR_ALL_PHOTOS": "All photos",
+    "ROOM_BEDROOM": "Bedroom",
+    "ROOM_BEDROOM_ADD": "Add photos",
+    "ROOM_BATHROOM": "Full bathroom",
+    "ROOM_BATHROOM_ADD": "Add photos",
+    "ROOM_ADDITIONAL": "Additional photos",
+    "ROOM_ADDITIONAL_COUNT": "3 photos",
+    "ROOM_FEATURE_SLEEPING": "Sleeping arrangements",
+    "ROOM_FEATURE_PRIVACY": "Privacy info",
+    "ROOM_FEATURE_AMENITIES": "Amenities",
+    "ROOM_FEATURE_ACCESSIBILITY": "Accessibility features",
+    "ROOM_FEATURE_ADD_DETAILS": "Add details",
+    "ROOM_FEATURE_DELETE": "Delete room or space"
+  }
+}

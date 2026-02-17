@@ -1,0 +1,108 @@
+.react-datepicker {
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: none !important;
+}
+
+.react-datepicker__header {
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+.react-datepicker__day {
+  width: 50px !important;
+  height: 50px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 500;
+  margin-top: 4 !important;
+  margin-bottom: 4 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;
+}
+
+.react-datepicker__day-name {
+  width: 50px !important;
+  height: 50px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0;
+}
+
+.react-datepicker__day:hover {
+  background-color: #ffffff !important;
+  border: 1px solid black;
+  border-radius: 50% !important;
+}
+
+.custom-in-range {
+  background-color: rgb(255, 255, 255) !important;
+  color: black !important;
+  border-radius: 0 !important;
+  z-index: 0 !important;
+}
+
+.custom-range-start,
+.custom-range-end,
+.custom-range-start:hover,
+.custom-range-end:hover {
+  background-color: black !important;
+  color: white !important;
+  border-radius: 50% !important;
+  z-index: 2 !important;
+  position: relative;
+  overflow: visible;
+}
+
+.react-datepicker__day--in-selecting-range {
+  background-color: #d6d6d6 !important;
+  color: black !important;
+  border-radius: 0 !important;
+  z-index: 0;
+}
+
+.react-datepicker__day--selecting-range-end {
+  border-top-right-radius: 50px !important;
+  border-bottom-right-radius: 50px !important;
+}
+
+.react-datepicker__day--selecting-range-start {
+  border-top-left-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+}
+
+.react-datepicker__day--in-range:not(.react-datepicker__day--range-start):not(
+    .react-datepicker__day--range-end
+  ) {
+  background-color: rgb(255, 255, 255) !important;
+  color: black !important;
+  border-radius: 0 !important;
+  z-index: 0;
+  margin: 0 !important;
+}
+
+/* Blocked dates */
+.react-datepicker__day.blocked-date {
+  color: #9ca3af;
+  /* gray */
+  text-decoration: line-through;
+  cursor: not-allowed;
+  background-color: transparent !important;
+}
+
+/* Prevent hover effect */
+.react-datepicker__day.blocked-date:hover {
+  background-color: transparent !important;
+}
+
+/* Make sure selected styles don't override */
+.react-datepicker__day--selected.blocked-date,
+.react-datepicker__day--in-range.blocked-date {
+  background-color: transparent !important;
+  color: #9ca3af !important;
+}
