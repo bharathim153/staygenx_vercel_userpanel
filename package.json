@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 3000 --hostname 0.0.0.0",
+    "dev": "next dev --host",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -47,7 +47,6 @@
     "eslint-config-next": "15.3.3",
     "husky": "^9.1.7",
     "prettier": "^3.6.0",
-    "dev": "next dev --host",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5"
   }
