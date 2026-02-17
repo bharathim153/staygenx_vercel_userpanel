@@ -4,15 +4,23 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { getCookie } from '@/utils/helper';
 import axios from 'axios';
+
 import { useEffect, useState } from 'react';
+
+interface Wishlist {
+  _id: string;
+  name: string;
+  listings?: Array<{
+    images?: string[];
+  }>;
+  title?: string;
+  subtitle?: string;
+}
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
 
 export default function Wishlists() {
-  const [wishlistId, setWishlistId] = useState<string | null>(null);
-  const [wishlistMap, setWishlistMap] = useState<{ [key: string]: boolean }>({});
-  const [wishlists, setWishlists] = useState<any[]>([]);
-
+  const [wishlists, setWishlists] = useState<Wishlist[]>([]);
   const [loading, setLoading] = useState(false);
   const Router = useRouter();
 
@@ -34,8 +42,6 @@ export default function Wishlists() {
     };
     fetchWishlists();
   }, []);
-
-
 
   return (
     <div className="px-6 py-10">
@@ -60,7 +66,7 @@ export default function Wishlists() {
                   ) : wishlists.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">No wishlists found.</div>
                   ) : (
-                    wishlists.map((wl: any) => (
+                    wishlists.map((wl: Wishlist) => (
                       <div
                         key={wl._id}
                         className="flex flex-col items-center mb-6 cursor-pointer"

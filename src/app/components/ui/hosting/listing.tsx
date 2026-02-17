@@ -109,7 +109,7 @@ export default function Listing() {
                         {item?.images[0] !== '' ? (
                           <>
                             {/* <p>{item.images[0]}</p> */}
-                            <img
+                            <Image
                               src={item.images[0]}
                               alt="Listing Image"
                               className="rounded-2xl object-cover h-[300px] w-full"

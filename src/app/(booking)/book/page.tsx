@@ -106,64 +106,72 @@ const BookingPage = () => {
     listingId?: string;
   } | null>(null);
   // State for view review modal
-  const [viewReviewModal, setViewReviewModal] = useState<{
+  // ReviewData type is already defined below, so we don't redefine it here.
+  type ViewReviewModalData = {
     open: boolean;
     listingId?: string;
-    reviewData?: any;
-  } | null>(null);
+    reviewData?: ReviewData | { error: string } | { data: ReviewData[] };
+  } | null;
+  const [viewReviewModal, setViewReviewModal] = useState<ViewReviewModalData>(null);
   // Track which bookings have a review submitted (by bookingId)
   const [reviewedBookings, setReviewedBookings] = useState<{ [bookingId: string]: boolean }>({});
 
+  type ReviewRating = {
+    Cleanliness?: number;
+    Accuracy?: number;
+    Communication?: number;
+    Location?: number;
+    Amenities?: number;
+    Security?: number;
+  };
   type ReviewData = {
     review?: string;
-    rating?: {
-      Cleanliness?: number;
-      Accuracy?: number;
-      Communication?: number;
-      Location?: number;
-      Amenities?: number;
-      Security?: number;
-    };
+    rating?: ReviewRating;
   };
 
   const [reviewData, setReviewData] = useState<ReviewData | null>(null);
 
   const [reviewText, setReviewText] = useState<string>("");
-  const [loadingReview, setLoadingReview] = useState(false);
+  // const [loadingReview, setLoadingReview] = useState(false);
   const [submittingReview, setSubmittingReview] = useState(false);
 
-  const Reviewdata: ReviewData | null = null;
+  // Simulate Reviewdata from API for demo; replace with real data as needed
+  const Reviewdata = null as ReviewData | null;
 
   useEffect(() => {
     // If you have Reviewdata from API, use it here
-    setLoadingReview(true);
-    if (Reviewdata?.rating?.Cleanliness) {
-      setReviewText(Reviewdata?.review || "");
+    // setLoadingReview(true);
+    if (Reviewdata && Reviewdata.rating && typeof Reviewdata.rating.Cleanliness === 'number') {
+      setReviewText(Reviewdata.review || "");
       setReviewData({
-        Cleanliness: Reviewdata.rating.Cleanliness || 0,
-        Accuracy: Reviewdata.rating.Accuracy || 0,
-        Communication: Reviewdata.rating.Communication || 0,
-        Location: Reviewdata.rating.Location || 0,
-        Amenities: Reviewdata.rating.Amenities || 0,
-        Security: Reviewdata.rating.Security || 0
+        review: Reviewdata.review || "",
+        rating: {
+          Cleanliness: Reviewdata.rating.Cleanliness || 0,
+          Accuracy: Reviewdata.rating.Accuracy || 0,
+          Communication: Reviewdata.rating.Communication || 0,
+          Location: Reviewdata.rating.Location || 0,
+          Amenities: Reviewdata.rating.Amenities || 0,
+          Security: Reviewdata.rating.Security || 0
+        }
       });
     } else {
       setReviewData({
-        Cleanliness: 0,
-        Accuracy: 0,
-        Communication: 0,
-        Location: 0,
-        Amenities: 0,
-        Security: 0
+        review: "",
+        rating: {
+          Cleanliness: 0,
+          Accuracy: 0,
+          Communication: 0,
+          Location: 0,
+          Amenities: 0,
+          Security: 0
+        }
       });
       setReviewText("");
     }
-    setLoadingReview(false);
     // If reviewModal just closed after submit, mark booking as reviewed
     if (reviewModal && !reviewModal.open && reviewModal.bookingId) {
       setReviewedBookings(prev => ({ ...prev, [reviewModal.bookingId!]: true }));
     }
-    // eslint-disable-next-line
   }, [reviewModal]);
 
   console.log("reviewData", reviewData, "reviewText", reviewText);
@@ -595,7 +603,7 @@ const BookingPage = () => {
                                 try {
                                   const res = await axios.get(`https://staygenxapi.opengenx.com/reviews/listing/${booking?.listingId?._id}`);
                                   setViewReviewModal({ open: true, listingId: booking?.listingId?._id, reviewData: res.data });
-                                } catch (err) {
+                                } catch {
                                   setViewReviewModal({ open: true, listingId: booking?.listingId?._id, reviewData: { error: 'Failed to fetch review' } });
                                 }
                               }}
@@ -848,12 +856,12 @@ const BookingPage = () => {
                   const payload = {
                     bookingId: reviewModal.bookingId,
                     listingId: reviewModal?.listingId || '',
-                    cleanliness: reviewData.Cleanliness,
-                    accuracy: reviewData.Accuracy,
-                    checkIn: reviewData.Location, // Map Location to checkIn
-                    communication: reviewData.Communication,
-                    location: reviewData.Location,
-                    value: reviewData.Amenities, // Map Amenities to value
+                    cleanliness: reviewData?.rating?.Cleanliness ?? 0,
+                    accuracy: reviewData?.rating?.Accuracy ?? 0,
+                    checkIn: reviewData?.rating?.Location ?? 0, // Map Location to checkIn
+                    communication: reviewData?.rating?.Communication ?? 0,
+                    location: reviewData?.rating?.Location ?? 0,
+                    value: reviewData?.rating?.Amenities ?? 0, // Map Amenities to value
                     comment: reviewText,
                   };
                   const token = getCookie('appToken');
@@ -870,91 +878,6 @@ const BookingPage = () => {
                     setReviewedBookings(prev => ({ ...prev, [reviewModal.bookingId!]: true }));
                   } else {
                     triggerToast('Failed to submit review', 'error', 'top-right');
-                  }
-                  {/* View Review Modal */ }
-                  {
-                    viewReviewModal?.open && (
-                      <div
-                        style={{
-                          position: 'fixed',
-                          top: 0,
-                          left: 0,
-                          width: '100vw',
-                          height: '100vh',
-                          background: 'rgba(0,0,0,0.3)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          zIndex: 2100,
-                        }}
-                        onClick={() => setViewReviewModal(null)}
-                      >
-                        <div
-                          style={{
-                            background: '#fff',
-                            borderRadius: 16,
-                            padding: 36,
-                            minWidth: 400,
-                            maxWidth: 480,
-                            boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
-                            position: 'relative',
-                            fontFamily: 'inherit',
-                          }}
-                          onClick={e => e.stopPropagation()}
-                        >
-                          <button
-                            style={{
-                              position: 'absolute',
-                              top: 16,
-                              right: 16,
-                              background: 'none',
-                              border: 'none',
-                              fontSize: 24,
-                              cursor: 'pointer',
-                              color: '#888',
-                            }}
-                            onClick={() => setViewReviewModal(null)}
-                          >
-                            ×
-                          </button>
-                          <h2
-                            style={{
-                              marginTop: 0,
-                              marginBottom: 18,
-                              textAlign: 'center',
-                              fontWeight: 700,
-                              fontSize: '1.4rem',
-                            }}
-                          >
-                            Review Details
-                          </h2>
-                          {viewReviewModal.reviewData?.error ? (
-                            <div style={{ color: 'red', textAlign: 'center' }}>{viewReviewModal.reviewData.error}</div>
-                          ) : (
-                            <div style={{ fontSize: 16 }}>
-                              {/* Render review data here */}
-                              {Array.isArray(viewReviewModal.reviewData?.data) && viewReviewModal.reviewData.data.length > 0 ? (
-                                viewReviewModal.reviewData.data.map((review: any, idx: number) => (
-                                  <div key={idx} style={{ marginBottom: 18, borderBottom: '1px solid #eee', paddingBottom: 12 }}>
-                                    <div><b>Review:</b> {review.review || 'No review text'}</div>
-                                    <div style={{ marginTop: 6 }}>
-                                      <b>Ratings:</b>
-                                      <ul style={{ margin: 0, paddingLeft: 18 }}>
-                                        {review.rating && Object.entries(review.rating).map(([k, v]) => (
-                                          <li key={k}>{k}: {v}</li>
-                                        ))}
-                                      </ul>
-                                    </div>
-                                  </div>
-                                ))
-                              ) : (
-                                <div>No reviews found for this listing.</div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )
                   }
                 } catch (err: unknown) {
                   if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response && err.response.data && typeof err.response.data === 'object' && 'message' in err.response.data) {
@@ -976,7 +899,7 @@ const BookingPage = () => {
                       {[1, 2, 3, 4, 5].map(star => (
                         <span
                           key={star}
-                          style={{ fontSize: 22, cursor: 'pointer', color: reviewData[field as keyof typeof reviewData] >= star ? '#FFD700' : '#ccc' }}
+                          style={{ fontSize: 22, cursor: 'pointer', color: reviewData?.rating && reviewData.rating[field as keyof ReviewRating] && (reviewData.rating[field as keyof ReviewRating] as number) >= star ? '#FFD700' : '#ccc' }}
                           onClick={() => handleStarChange(field, star)}
                         >
                           ★
@@ -1004,6 +927,93 @@ const BookingPage = () => {
           </div>
         </div>
       )}
+
+      {/* View Review Modal (moved out of function body to avoid unused expression) */}
+      {viewReviewModal?.open && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 2100,
+          }}
+          onClick={() => setViewReviewModal(null)}
+        >
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: 16,
+              padding: 36,
+              minWidth: 400,
+              maxWidth: 480,
+              boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+              position: 'relative',
+              fontFamily: 'inherit',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              style={{
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                background: 'none',
+                border: 'none',
+                fontSize: 24,
+                cursor: 'pointer',
+                color: '#888',
+              }}
+              onClick={() => setViewReviewModal(null)}
+            >
+              ×
+            </button>
+            <h2
+              style={{
+                marginTop: 0,
+                marginBottom: 18,
+                textAlign: 'center',
+                fontWeight: 700,
+                fontSize: '1.4rem',
+              }}
+            >
+              Review Details
+            </h2>
+            {(() => {
+              const data = viewReviewModal.reviewData;
+              if (data && typeof data === 'object' && 'error' in data) {
+                return <div style={{ color: 'red', textAlign: 'center' }}>{data.error}</div>;
+              } else if (data && typeof data === 'object' && 'data' in data && Array.isArray(data.data) && data.data.length > 0) {
+                return (
+                  <div style={{ fontSize: 16 }}>
+                    {data.data.map((review: ReviewData, idx: number) => (
+                      <div key={idx} style={{ marginBottom: 18, borderBottom: '1px solid #eee', paddingBottom: 12 }}>
+                        <div><b>Review:</b> {review.review || 'No review text'}</div>
+                        <div style={{ marginTop: 6 }}>
+                          <b>Ratings:</b>
+                          <ul style={{ margin: 0, paddingLeft: 18 }}>
+                            {review.rating && Object.entries(review.rating).map(([k, v]) => (
+                              <li key={k}>{k}: {String(v)}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              } else {
+                return <div>No reviews found for this listing.</div>;
+              }
+            })()}
+          </div>
+        </div>
+      )}
+
       <div
         style={{
           textAlign: 'center',

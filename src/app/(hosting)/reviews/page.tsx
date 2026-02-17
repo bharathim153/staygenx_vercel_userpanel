@@ -26,7 +26,20 @@ const listings = [
 
 const ReviewsPage = () => {
   const [selectedId, setSelectedId] = useState<string | null>(listings[0]?._id || null);
-  const [reviews, setReviews] = useState<any[]>([]);
+  interface Review {
+    _id: string;
+    review?: string;
+    rating?: {
+      Cleanliness?: number;
+      Accuracy?: number;
+      Communication?: number;
+      Location?: number;
+      Amenities?: number;
+      Security?: number;
+    };
+    // Add more fields as needed
+  }
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(false);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
@@ -46,7 +59,7 @@ const ReviewsPage = () => {
         .catch(() => setReviews([]))
         .finally(() => setLoading(false));
     }
-  }, [selectedId]);
+  }, [selectedId, baseUrl]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedId(e.target.value);
@@ -80,7 +93,7 @@ const ReviewsPage = () => {
               <path d="M24 4l6.9 14.1L46 18l-11 10.7L37.8 44 24 36.7 10.2 44l2.8-15.3L2 18l15.1-1.9L24 4z" stroke="#FF385C" strokeWidth="2" fill="#FFF0F4" />
             </svg>
             <div style={{ fontWeight: 600, fontSize: 20, marginBottom: 8 }}>Your first review will show up here</div>
-            <div style={{ color: '#888', fontSize: 15 }}>We'll let you know when guests leave feedback</div>
+            <div style={{ color: '#888', fontSize: 15 }}>We&apos;ll let you know when guests leave feedback</div>
           </div>
         ) : (
           <div style={{ width: 700, background: '#fff', borderRadius: 16, border: '1px solid #eee', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', padding: 32 }}>

@@ -10,7 +10,6 @@ import PageContext from '../../contextprovider';
 import Button from '@/shadcn/ui/Button';
 import { useRouter } from 'next/navigation';
 import { useSearchParamsStore } from './store/searchbar';
-import { debug } from 'console';
 
 type ActiveKey = 'where' | 'checkin' | 'checkout' | 'who';
 type DateRange = [Date | null, Date | null];

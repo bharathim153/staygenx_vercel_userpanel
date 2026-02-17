@@ -2,8 +2,23 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { getCookie } from '@/utils/helper';
 
+
+interface Review {
+    _id: string;
+    comment?: string;
+    rating?: number | {
+        Cleanliness?: number;
+        Accuracy?: number;
+        Communication?: number;
+        Location?: number;
+        Amenities?: number;
+        Security?: number;
+    };
+    createdAt?: string;
+}
+
 interface ReviewItemProps {
-    review: any;
+    review: Review;
     baseUrl: string;
 }
 
@@ -32,7 +47,7 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review, baseUrl }) => {
             alert('Reply sent!');
             setShowReply(false);
             setReplyMsg('');
-        } catch (e) {
+        } catch {
             alert('Failed to reply.');
         } finally {
             setLoading(false);
@@ -53,17 +68,30 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review, baseUrl }) => {
                 }
             );
             alert('Hide API called!');
-        } catch (e) {
+        } catch {
             alert('Failed to hide review.');
         } finally {
             setLoading(false);
         }
     };
 
+    const getRatingDisplay = () => {
+        if (!review.rating) {
+            return '-';
+        }
+        if (typeof review.rating === 'object') {
+            const ratings = review.rating as Record<string, number>;
+            return Object.entries(ratings)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join(', ');
+        }
+        return review.rating;
+    };
+
     return (
         <div style={{ marginBottom: 24, borderBottom: '1px solid #eee', paddingBottom: 16 }}>
             <div style={{ fontWeight: 600, fontSize: 18, marginBottom: 6 }}>{review.comment || 'No comment'}</div>
-            <div style={{ color: '#888', fontSize: 14 }}>Rating: {review.rating ?? '-'}</div>
+            <div style={{ color: '#888', fontSize: 14 }}>Rating: {getRatingDisplay()}</div>
             <div style={{ color: '#888', fontSize: 14 }}>Date: {review.createdAt ? new Date(review.createdAt).toLocaleDateString() : '-'}</div>
             <div style={{ marginTop: 12, display: 'flex', gap: 12 }}>
                 <button

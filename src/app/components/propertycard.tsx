@@ -1,8 +1,8 @@
 
 'use client';
-import Image from 'next/image';
 
-function SavedToWishlistToast({ open, image, wishlistName, onChange }: { open: boolean, image: string, wishlistName: string, onChange: () => void }) {
+
+function SavedToWishlistToast({ open, wishlistName, onChange }: { open: boolean, image: string, wishlistName: string, onChange: () => void }) {
   if (!open) return null;
   return (
     <div className="fixed left-6 bottom-10 z-50 bg-white rounded-2xl shadow-lg flex items-center px-4 py-3 min-w-[270px] max-w-xs border">
@@ -115,19 +115,27 @@ import { getCookie } from '@/utils/helper';
 import axios from 'axios';
 import { useToastStore } from '@/lib/store/toast-store';
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
 
 // Save to wishlist modal (screenshot style)
-function SaveToWishlistModal({ open, onClose, property, onSelectWishlist, onCreateNew }: {
+interface WishlistListing {
+  _id: string;
+  images?: string[];
+}
+interface Wishlist {
+  _id: string;
+  name: string;
+  listings?: WishlistListing[];
+}
+
+function SaveToWishlistModal({ open, onClose, onSelectWishlist, onCreateNew }: {
   open: boolean,
   onClose: () => void,
-  property: any,
   onSelectWishlist: (wishlistId: string) => void,
   onCreateNew: () => void
 }) {
-  const [wishlists, setWishlists] = useState<any[]>([]);
+  const [wishlists, setWishlists] = useState<Wishlist[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (!open) return;
@@ -162,14 +170,14 @@ function SaveToWishlistModal({ open, onClose, property, onSelectWishlist, onCrea
           ) : wishlists.length === 0 ? (
             <div className="text-center py-8 text-gray-500">No wishlists found.</div>
           ) : (
-            wishlists.map((wl: any) => (
+            wishlists.map((wl: Wishlist) => (
               <div
                 key={wl._id}
                 className="flex flex-col items-center mb-6 cursor-pointer"
                 onClick={() => onSelectWishlist(wl._id)}
               >
                 <div className="rounded-2xl overflow-hidden mb-2 mr-4" style={{ width: 220, height: 180 }}>
-                  <Image
+                  <ImageComponent
                     src={wl.listings?.[0]?.images?.[0] ? wl.listings[0].images[0] : '/images/errorImage.webp'}
                     alt={wl.name}
                     width={220}
@@ -285,10 +293,10 @@ export default function PropertySection({
           const allWishlists = data.data;
           // Set the first wishlist's id for add/remove
           setWishlistId(allWishlists[0]._id);
-          const map: any = {};
-          allWishlists.forEach((wishlist: any) => {
+          const map: { [key: string]: boolean } = {};
+          allWishlists.forEach((wishlist: Wishlist) => {
             if (Array.isArray(wishlist.listings)) {
-              wishlist.listings.forEach((listing: any) => {
+              wishlist.listings.forEach((listing: { _id: string }) => {
                 if (listing && listing._id) {
                   map[listing._id] = true;
                 }
@@ -297,7 +305,7 @@ export default function PropertySection({
           });
           setWishlistMap(map);
         }
-      } catch (error) {
+      } catch {
         // Optionally handle error
       }
     };
@@ -310,40 +318,16 @@ export default function PropertySection({
   const [showSaveToWishlistModal, setShowSaveToWishlistModal] = useState(false);
 
 
-  const handleAddToWishlist = async () => {
-    try {
-      const token = getCookie("appToken");
-
-      const response = await axios.post(
-        `${baseUrl}wishlist`,
-        {
-          name: "My Favorite Listings",
-        },
-        {
-          headers: {
-            Authorization: token ? `Bearer ${token}` : "",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200 || response.status === 201) {
-        triggerToast("Added to Wishlist", "success", "top-right");
-      }
-    } catch (error) {
-      console.error("Error adding to wishlist:", error);
-      triggerToast("Failed to add", "error", "top-right");
-    }
-  };
+  // Removed unused handleAddToWishlist
   console.log('wishlistId:', wishlistId);
 
   // Modal state for wishlist name
   const [showWishlistNameModal, setShowWishlistNameModal] = useState(false);
-  const [pendingProperty, setPendingProperty] = useState<any>(null);
+  const [pendingProperty, setPendingProperty] = useState<IListing | null>(null);
   const token = getCookie("appToken");
 
 
-  const toggleWishlist = async (property: any) => {
+  const toggleWishlist = async (property: IListing) => {
     // REMOVE IF ALREADY ADDED
     if (wishlistMap[property._id] && wishlistId) {
       try {
@@ -377,13 +361,7 @@ export default function PropertySection({
         const wishlists = wishlistsRes.data?.data || [];
         console.log('Fetched wishlists for toast:', wishlists);
         // Find the wishlist containing this property
-        let foundName = name;
-        for (const wl of wishlists) {
-          if (wl.listings?.some((l: any) => l._id === pendingProperty._id)) {
-            foundName = wl.name;
-            break;
-          }
-        }
+        // Find the wishlist containing this property (not used)
         if (wishlists.length > 0) {
 
           setShowSaveToWishlistModal(true);
@@ -394,7 +372,7 @@ export default function PropertySection({
         // setSavedToastData({ image: pendingProperty.images?.[0] 
         //   || '',  wishlistName: foundName
         //    });
-      } catch (fetchErr) {
+      } catch {
         // setSavedToastData({ image: pendingProperty.images?.[0] || '', wishlistName: name });
       }
 
@@ -451,16 +429,15 @@ export default function PropertySection({
           }
         );
         const wishlists = wishlistsRes.data?.wishlists || [];
-        // Find the wishlist containing this property
         let foundName = name;
         for (const wl of wishlists) {
-          if (wl.listings?.some((l: any) => l._id === pendingProperty._id)) {
+          if (wl.listings?.some((l: { _id: string }) => l._id === pendingProperty?._id)) {
             foundName = wl.name;
             break;
           }
         }
         setSavedToastData({ image: pendingProperty.images?.[0] || '', wishlistName: foundName });
-      } catch (fetchErr) {
+      } catch {
         setSavedToastData({ image: pendingProperty.images?.[0] || '', wishlistName: name });
       }
       setShowSavedToast(true);
@@ -502,9 +479,9 @@ export default function PropertySection({
       <SaveToWishlistModal
         open={showSaveToWishlistModal}
         onClose={() => setShowSaveToWishlistModal(false)}
-        property={pendingProperty}
         onSelectWishlist={async (wishlistId: string) => {
           // Move property to selected wishlist
+          if (!pendingProperty) return;
           try {
             const token = getCookie("appToken");
             await axios.post(`${baseUrl}wishlist/${wishlistId}/add`, {
@@ -529,7 +506,7 @@ export default function PropertySection({
             }
             setSavedToastData({ image: pendingProperty.images?.[0] || '', wishlistName: foundName });
             setShowSavedToast(true);
-          } catch (err) {
+          } catch {
             // handle error
           }
         }}

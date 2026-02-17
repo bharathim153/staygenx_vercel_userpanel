@@ -1,9 +1,9 @@
 import { useSearchStore } from "@/app/components/ui/propertypage/store/searchpage";
-import APICONSTANT from "@/utils/apiconstant";
+
 import { ApiResponse } from "@/utils/apiresponse";
 import { Request } from "@/utils/request";
 
-export async function SearchApi(data: { body: any }): Promise<ApiResponse> {
+export async function SearchApi(data: { body: Record<string, unknown> }): Promise<ApiResponse> {
     debugger
     try {
         const response = await Request<ApiResponse>(

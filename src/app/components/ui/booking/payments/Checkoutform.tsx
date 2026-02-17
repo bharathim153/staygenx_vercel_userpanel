@@ -81,13 +81,9 @@ const CheckoutForm = ({ data }: CheckoutFormProps) => {
             guestCount: parseInt(adult) + parseInt(children),
             paymentIntentId: id1,
           };
-          const response = statusTrigger({ body: data });
-          console.log('Status trigger response:', response);
-          if (response.status === 200) {
-            router.push('/rooms/booking/bookingSuccess?paymentMode=card');
-          } else {
-            console.error('Unexpected status code:', response.status);
-          }
+          await statusTrigger({ body: data });
+          // statusTrigger does not return a response, so just push the route after
+          router.push('/rooms/booking/bookingSuccess?paymentMode=card');
 
         } catch (error) {
           console.error('GET API error:', error);

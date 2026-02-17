@@ -1,4 +1,4 @@
-import { GraduationCap, Briefcase, ShieldCheck } from 'lucide-react';
+import {  ShieldCheck } from 'lucide-react';
 import Button from '@/shadcn/ui/Button';
 import ImageComponent from '../../image/imageComponent';
 
